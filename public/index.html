@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Click Counter</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .container {
+        text-align: center;
+    }
+    .matrix-container {
+        display: inline-block;
+    }
+    .cell {
+        width: 100px;
+        height: 100px;
+        border: 1px solid #000;
+        display: inline-block;
+        cursor: pointer;
+        text-align: center;
+        line-height: 100px;
+    }
+    table {
+        margin-top: 20px;
+        border-collapse: collapse;
+        display: inline-block;
+    }
+    th, td {
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+    .button {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+    
+    .table-container {
+    overflow-x: auto;
+    max-width: 100%;
+    }
+
+    /* Media Queries */
+    @media screen and (max-width: 768px) {
+        .cell {
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+        }
+        table {
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 5px;
+        }
+        .button {
+            margin-top: 10px;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Welcome, <span id="username"></span>!</h1>
+    <p id="dateTime"></p>
+</div>
+
+<div class="container">
+    <div class="matrix-container">
+        <div id="matrix">
+            <div class="row">
+                <div class="cell" style="background-color: red;">
+                    <span class="cell-count">0</span>
+                </div>
+                <div class="cell" style="background-color: green;">
+                    <span class="cell-count">0</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="cell" style="background-color: blue;">
+                    <span class="cell-count">0</span>
+                </div>
+                <div class="cell" style="background-color: yellow;">
+                    <span class="cell-count">0</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="cell" style="background-color: white;">
+                    <span class="cell-count">0</span>
+                </div>
+                <div class="cell" style="background-color: black;">
+                    <span class="cell-count">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table id="clickCounts">
+            <thead>
+                <tr>
+                    <th>Color</th>
+                    <th>Click Count</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    
+
+    <button id="submitButton" class="button">Submit Clicks</button>
+    <a href="login.html" id="exitButton" class="button">Exit</a>
+</div>
+
+<script>
+    // Function to parse URL parameters
+    function getUrlParameter(name) {
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(window.location.href);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    // Get the username from the URL
+    var username = getUrlParameter('username');
+    document.getElementById('username').textContent = username;
+
+    // Array to store click counts for each color
+    let clickCounts = {
+        red: 0,
+        green: 0,
+        blue: 0,
+        yellow: 0,
+        white: 0,
+        black: 0
+    };
+
+    // Get all cells
+    const cells = document.querySelectorAll('.cell');
+
+    // Add click event listener to each cell
+    cells.forEach(cell => {
+        cell.addEventListener('click', function() {
+            const color = this.style.backgroundColor;
+            clickCounts[color]++;
+            updateClickCounts();
+        });
+    });
+
+
+// Function to update click counts table
+function updateClickCounts() {
+    const tbody = document.querySelector('#clickCounts tbody');
+    tbody.innerHTML = '';
+    for (const color in clickCounts) {
+        const count = clickCounts[color];
+        const row = `
+            <tr>
+                <td>
+                    <button class="color-button" data-color="${color}">${color}</button>
+                </td>
+                <td>${count}</td>
+            </tr>
+        `;
+        tbody.innerHTML += row;
+    }
+        // Update cell counts in the matrix
+        cells.forEach(cell => {
+            const color = cell.style.backgroundColor;
+            const count = clickCounts[color];
+            const cellCount = cell.querySelector('.cell-count');
+            cellCount.textContent = count;
+        });
+    
+
+    // Function to get click count for a specific color from the API
+ /*   async function getClickCount(color) {
+        try {
+            const response = await fetch(`http://api.example.com/ClickCount?color=${color}`);
+            const data = await response.json();
+            return data.clickCount;
+        } catch (error) {
+            console.error('Error fetching click count:', error);
+            return null;
+        }
+    } */
+
+    // Add event listeners to color buttons to fetch click counts
+        // Add event listeners to color buttons
+    const colorButtons = document.querySelectorAll('.color-button');
+    colorButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const color = button.dataset.color;
+            fetch(`http://127.0.0.1:3001/clickApp?color=${color}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(`Click count for ${color}: ${data.count}`);
+                    alert(`Click count for ${color}: ${data.count}`);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Failed to fetch click countS. Please try again later.');
+                });
+        });
+    });
+}
+    // Update date and time
+    function updateDateTime() {
+        const dateTimeElement = document.getElementById('dateTime');
+        const now = new Date();
+        const dateTimeString = now.toLocaleString();
+        dateTimeElement.textContent = dateTimeString;
+    }
+
+    // Call updateDateTime every second
+    setInterval(updateDateTime, 1000);
+
+    // Call updateDateTime on page load
+    updateDateTime();
+
+    // Add event listener to the submit button
+    document.getElementById('submitButton').addEventListener('click', function() {
+        // Prepare the data in JSON format
+        const jsonData = {
+            time: new Date().toLocaleTimeString(),
+            date: new Date().toLocaleDateString(),
+            username: username,
+            clickCounts: clickCounts
+        };
+        
+        // Convert JSON data to a blob
+        const blob = new Blob([JSON.stringify(jsonData, null, 2)], { type: 'application/json' });
+
+        // Create a link element
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'click_data.json';
+        document.body.appendChild(a);
+        
+        // Trigger the click event on the link element to initiate the download
+        a.click();
+        
+        // Send an HTTP request to the API with the JSON data
+        fetch('http://127.0.0.1:3001/clickApp', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(jsonData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data); // Handle the response data as needed
+            alert('Click counts submitted successfully!');
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to submit click counts. Please try again later.');
+        });
+    });
+
+    // Add event listener to the exit button
+    document.getElementById('exitButton').addEventListener('click', function(event) {
+        // Confirm exit
+        if (!confirm('Are you sure you want to exit without submitting?')) {
+            event.preventDefault(); // Cancel the default action (exiting without submitting)
+        }
+    });
+</script>
+
+</body>
+</html>
