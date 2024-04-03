@@ -28,6 +28,8 @@ RUN npm ci --omit=dev
 # Copy the rest of the application source
 COPY . .
 
+RUN npm run ts-build
+EXPOSE 8080
 # Create a new user with UID 10014
 RUN addgroup -g 10014 choreo && \
     adduser --disabled-password --no-create-home --uid 10014 --ingroup choreo choreouser
