@@ -1,5 +1,21 @@
 
-# Stage 1: Create the production image
+# Stage 1: Build and run tests
+FROM node:18-alpine AS build
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Copy package files and install dependencies
+COPY package*.json ./
+RUN npm ci
+
+# Copy the rest of the application source
+COPY . .
+
+# Run unit tests
+RUN npm run test
+
+# Stage 2: Create the production image
 FROM node:18-alpine
 
 # Create app directory
