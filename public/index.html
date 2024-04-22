@@ -205,7 +205,7 @@ function updateClickCounts() {
         button.addEventListener('click', () => {
             const color = button.dataset.color;
             //fetch(`http://127.0.0.1:3001/clickApp?color=${color}`)
-            fetch('${CLICKAPI_SERVICE_URL}/clickApp?color=${color}')
+            fetch(`${CLICKAPI_SERVICE_URL}/clickApp?color=${color}`)
             .then(response => response.json())
                 .then(data => {
                     console.log(`Click count for ${color}: ${data.count}`);
@@ -256,7 +256,7 @@ function updateClickCounts() {
         
         // Send an HTTP request to the API with the JSON data
         //fetch('http://127.0.0.1:3001/clickApp', {
-          fetch('${CLICKAPI_SERVICE_URL}/clickApp')    
+          fetch(`${CLICKAPI_SERVICE_URL}/clickApp`)    
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
