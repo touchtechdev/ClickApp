@@ -123,6 +123,8 @@
 </div>
 
 <script>
+    import cors from "cors";
+    app.use(cors());
     // Function to parse URL parameters
     function getUrlParameter(name) {
         name = name.replace(/[\[\]]/g, "\\$&");
