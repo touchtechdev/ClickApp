@@ -200,6 +200,11 @@ function updateClickCounts() {
     // Add event listeners to color buttons to fetch click counts
         // Add event listeners to color buttons
     const colorButtons = document.querySelectorAll('.color-button');
+    
+    window.configs = {
+    apiUrl: '/choreo-apis/lkok/click-app-api/click-app-api-194/v1.0',
+};
+
     const CLICKAPI_SERVICE_URL = window.configs.apiUrl;
     colorButtons.forEach(button => {
         button.addEventListener('click', () => {
