@@ -122,8 +122,9 @@
     <a href="login.html" id="exitButton" class="button">Exit</a>
 </div>
 
-<script>
-   
+<script src="%PUBLIC_URL%/config.js">
+  
+
     // Function to parse URL parameters
     function getUrlParameter(name) {
         name = name.replace(/[\[\]]/g, "\\$&");
@@ -205,8 +206,8 @@ function updateClickCounts() {
 //    window.configs = {
 //    apiUrl: 'https://b63437d2-f460-4dd6-b70a-439f313d4071-dev.e1-us-cdp-2.choreoapis.dev/lkok/click-app-api/click-app-api-194/v1.0',
 //};
-
-    const CLICKAPI_SERVICE_URL = window.configs.serviceURL;
+    const serviceURL = window?.configs?.serviceURL ? window.configs.serviceURL : "/";
+    const CLICKAPI_SERVICE_URL = serviceURL;
     colorButtons.forEach(button => {
         button.addEventListener('click', () => {
             const color = button.dataset.color;
