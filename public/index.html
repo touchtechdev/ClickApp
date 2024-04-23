@@ -208,6 +208,7 @@ function updateClickCounts() {
 //};
     const serviceURL = window?.configs?.serviceURL ? window.configs.serviceURL : "/";
     const CLICKAPI_SERVICE_URL = serviceURL;
+    alert(`Service url: ${CLICKAPI_SERVICE_URL}`);
     colorButtons.forEach(button => {
         button.addEventListener('click', () => {
             const color = button.dataset.color;
