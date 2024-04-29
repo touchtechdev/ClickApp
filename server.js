@@ -3,8 +3,13 @@ const fs = require('fs');
 
 const app = express();
 
+// Serve static files from the 'src' directory
+app.use(express.static('src'));
+
 // Serve static files from the 'public' directory
 app.use(express.static('public'));
+
+
 
 // If the requested path is '/', serve 'login.html' by default
 app.route('/')
