@@ -1,4 +1,5 @@
 
+
     // Function to parse URL parameters
     function getUrlParameter(name) {
         name = name.replace(/[\[\]]/g, "\\$&");
@@ -76,30 +77,69 @@ function updateClickCounts() {
     // Add event listeners to color buttons to fetch click counts
         // Add event listeners to color buttons
     const colorButtons = document.querySelectorAll('.color-button');
-    
- //const serviceURL = process.env.SERVICE_URL;
- const CLICKAPI_SERVICE_URL = 'https://b63437d2-f460-4dd6-b70a-439f313d4071-dev.e1-us-cdp-2.choreoapis.dev/lkok/click-app-api/click-app-api-194/v1.0';
- 
- 
+  
+
+
+
  // const CLICKAPI_SERVICE_URL = 'http://127.0.0.1:3001'
  //   alert(`Service url: ${CLICKAPI_SERVICE_URL}`);
-    colorButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const color = button.dataset.color;
-            //fetch(`http://127.0.0.1:3001/clickApp?color=${color}`)
-            fetch(`${CLICKAPI_SERVICE_URL}/clickApp?color=${color}`)
+ 
+ colorButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const color = button.dataset.color;
+// obtain credentials for the apis
+        SERVICE_URL='https://b63437d2-f460-4dd6-b70a-439f313d4071-dev.e1-us-cdp-2.choreoapis.dev/lkok/click-app-api/click-app-api-194/v1.0'
+        serviceURL = SERVICE_URL;
+        //console.log('Service URL:', serviceURL);
+        const CLICKAPI_SERVICE_URL = serviceURL;
+        
+        CLIENT_ID="EAbyGf_KlSfEBCwfcd76_ZDdrGQa"
+        CLIENT_SECRET="YtvPqhAEvmReknXuOXGO1XUrFRca"
+        TOKEN_URL="https://b63437d2-f460-4dd6-b70a-439f313d4071-dev.e1-us-cdp-2.choreosts.dev/oauth2/token"
+        
+        // Encode client credentials as Base64
+        const CLIENT_CREDENTIALS = btoa(`${CLIENT_ID}:${CLIENT_SECRET}`);
+        //console.log('Client Credential:', CLIENT_CREDENTIALS);
+
+        // Request token using client credentials
+        fetch(TOKEN_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': `Basic ${CLIENT_CREDENTIALS}` // Use client credentials for authorization
+            },
+            body: 'grant_type=client_credentials'
+        })
+        .then(response => response.json())
+        .then(tokenData => {
+            const accessToken = tokenData.access_token;
+            console.log('accessToken:', accessToken);
+            // Use access token to fetch API
+            fetch(`${CLICKAPI_SERVICE_URL}/clickApp?color=${color}`, {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}` // Include access token in request headers
+                }
+            })
             .then(response => response.json())
-                .then(data => {
-                    console.log(`Click count for ${color}: ${data.count}`);
-                    alert(`Click count for ${color}: ${data.count}`);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Failed to fetch click countS. Please try again later.');
-                });
+            .then(data => {
+                //console.log(`Click count for ${color}: ${data.count}`);
+                alert(`Click count for ${color}: ${data.count}`);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to fetch click counts. Please try again later.');
+            });
+        })
+        .catch(error => {
+            console.error('Error obtaining access token:', error);
+            alert('Failed to obtain access token. Please try again later.');
         });
     });
+});
+
 }
+
+ 
     // Update date and time
     function updateDateTime() {
         const dateTimeElement = document.getElementById('dateTime');

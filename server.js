@@ -5,6 +5,7 @@ const app = express();
 
 // Serve static files from the 'src' directory
 app.use(express.static('src'));
+app.use(express.static('dist'));
 
 // Serve static files from the 'public' directory
 app.use(express.static('public'));
