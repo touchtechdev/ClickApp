@@ -17,8 +17,7 @@
     "dotenv-webpack": "^8.1.0",
     "nodemon": "^3.1.0",
     "webpack": "^5.91.0",
-    "webpack-cli": "^5.1.4",
-    "type": "module"
+    "webpack-cli": "^5.1.4"
   },
   "scripts": {
     "start": "node server.js"
