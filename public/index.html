@@ -203,8 +203,8 @@ function updateClickCounts() {
         // Add event listeners to color buttons
     const colorButtons = document.querySelectorAll('.color-button');
     
- const serviceURL = process.env.SERVICE_URL;
- const CLICKAPI_SERVICE_URL = serviceURL;
+ //const serviceURL = process.env.SERVICE_URL;
+ const CLICKAPI_SERVICE_URL = SERVICE_URL;
  //   alert(`Service url: ${CLICKAPI_SERVICE_URL}`);
     colorButtons.forEach(button => {
         button.addEventListener('click', () => {
