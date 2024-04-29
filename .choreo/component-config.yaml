@@ -1,0 +1,11 @@
+apiVersion: core.choreo.dev/v1beta1
+kind: ComponentConfig
+spec:
+  # +optional Outgoing connection details for the component.
+  outbound:
+    serviceReferences:
+    - name: choreo:///touchtech/lkok/mhqllr/194ae/v1.0/PUBLIC
+      connectionConfig: 01ef05b8-f25b-1d28-8e1c-09c11e2b7cde
+      env:
+      - from: ServiceURL
+        to: SERVICE_URL
