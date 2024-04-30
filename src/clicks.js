@@ -112,7 +112,8 @@ function updateClickCounts() {
         })
         .then(response => response.json())
         .then(tokenData => {
-            const accessToken = tokenData.access_token;
+            //const accessToken = tokenData.access_token;
+            const accessToken = 'eyJraWQiOiJnYXRld2F5X2NlcnRpZmljYXRlX2FsaWFzIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJkZThlNmI5Ny02MzE4LTRmYzctOGE1OS1lM2U5OTJhZWM4YzFAY2FyYm9uLnN1cGVyIiwiYXVkIjoiY2hvcmVvOmRlcGxveW1lbnQ6c2FuZGJveCIsImlzcyI6Imh0dHBzOlwvXC9zdHMuY2hvcmVvLmRldjo0NDNcL2FwaVwvYW1cL3B1Ymxpc2hlclwvdjJcL2FwaXNcL2ludGVybmFsLWtleSIsImtleXR5cGUiOiJTQU5EQk9YIiwic3Vic2NyaWJlZEFQSXMiOlt7InN1YnNjcmliZXJUZW5hbnREb21haW4iOm51bGwsIm5hbWUiOiJDbGljayBBcHAgQVBJIC0gQ2xpY2sgQXBwIEFQSSAxOTQiLCJjb250ZXh0IjoiXC9iNjM0MzdkMi1mNDYwLTRkZDYtYjcwYS00MzlmMzEzZDQwNzFcL2xrb2tcL2NsaWNrLWFwcC1hcGlcL2NsaWNrLWFwcC1hcGktMTk0XC92MS4wIiwicHVibGlzaGVyIjoiY2hvcmVvX3Byb2RfYXBpbV9hZG1pbiIsInZlcnNpb24iOiJ2MS4wIiwic3Vic2NyaXB0aW9uVGllciI6bnVsbH1dLCJleHAiOjE3MTQ0NDkyNDgsInRva2VuX3R5cGUiOiJJbnRlcm5hbEtleSIsImlhdCI6MTcxNDQ0ODY0OCwianRpIjoiYTBkZDk3MzctYzEyMC00YzE4LWIzZWItN2Q4YTk2ZWI1ODc5In0.VAn8fUuB88j11Mc1hvW3SuE8IBtup49rloIZU5O1kqm7XNG61KJzd1WgoPO7s65oVW8Q3N2fPV2oLtBwRgiW5Ly2Ll6iz52l_6UeoOU42OOC5Z0q-Xi2yRGSVUYDdMu_ss2ey2Hkn-J8msxy5jRWrQdY41V29H83F5mU7h4jQEvFchUlSXtX93FPZWxV5QWrr3u0sAZtBTBzcCs3efkgn_CyooBw2I5aceXJSv4-00M-tS5nFIVB7S9NW7wgYE2XLW5irEJFfuqw4pq_5nsVBMa--x8Fm7rJcWy2j2zWPD5H5XfHEGjhvTd6VV93I3cE9JS9LyyWTVgaI_IBBxMhDhW6Hb5OAclbvOeO6_kkbJFk2CUB4ydtVt7Z_Ib4EoLjavYk8SIe9O5kn_Ze3TPiFi66NjnNOuln1FUxgdjYdkk45CUI6zHDbopSj3nPoIB8_2B9HToUUqA593DjMkSIP-_OjFiTw2SD2oeGst6hsn-oZ3vBEoVbOKhAcAsbx5s_StSU_9S7Yuy-zW0-x4U5vTbXRXFAdFcW72kk4tFqcIa-vd6XrpdOaTKi1kHAiuaswbuOUJA4wKjq2dkGdkMZoBs4CqaHYUEJrXfTdIX00E0IXVnvYQ3WC8lSF_qcZOvcyrrl4yZPTEii7NugDhEcjh8LBjED5NDWpBr26fn2ODo'
             console.log('accessToken:', accessToken);
             // Use access token to fetch API
             fetch(`${CLICKAPI_SERVICE_URL}/clickApp?color=${color}`, {
