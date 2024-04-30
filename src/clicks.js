@@ -117,7 +117,7 @@ function updateClickCounts() {
             // Use access token to fetch API
             fetch(`${CLICKAPI_SERVICE_URL}/clickApp?color=${color}`, {
                 headers: {
-                    'x-api-key': '${accessToken}' // Replace 'your_api_key' with your actual API key
+                    'API-key': '${accessToken}' // Replace 'your_api_key' with your actual API key
                 }
                 //                headers: {
 //                   'Authorization': `Bearer ${accessToken}` // Include access token in request headers
