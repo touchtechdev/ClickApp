@@ -94,7 +94,7 @@ function updateClickCounts() {
         const CLICKAPI_SERVICE_URL = serviceURL;
         
         CLIENT_ID="EAbyGf_KlSfEBCwfcd76_ZDdrGQa"
-        CLIENT_SECRET="YtvPqhAEvmReknXuOXGO1XUrFRca"
+        CLIENT_SECRET="Y5FdR8CE3nFJ6sTCUYImCjKytqRIa"
         TOKEN_URL="https://b63437d2-f460-4dd6-b70a-439f313d4071-dev.e1-us-cdp-2.choreosts.dev/oauth2/token"
         
         // Encode client credentials as Base64
