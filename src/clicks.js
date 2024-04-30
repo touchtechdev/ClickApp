@@ -88,14 +88,14 @@ function updateClickCounts() {
     button.addEventListener('click', () => {
         const color = button.dataset.color;
 // obtain credentials for the apis
-        SERVICE_URL='https://b63437d2-f460-4dd6-b70a-439f313d4071-dev.e1-us-cdp-2.choreoapis.dev/lkok/click-app-api/click-app-api-194/v1.0'
-        serviceURL = SERVICE_URL;
+//        SERVICE_URL='https://b63437d2-f460-4dd6-b70a-439f313d4071-dev.e1-us-cdp-2.choreoapis.dev/lkok/click-app-api/click-app-api-194/v1.0'
+//        serviceURL = SERVICE_URL;
         //console.log('Service URL:', serviceURL);
-        const CLICKAPI_SERVICE_URL = serviceURL;
+//        const CLICKAPI_SERVICE_URL = serviceURL;
         
-        CLIENT_ID="EAbyGf_KlSfEBCwfcd76_ZDdrGQa"
-        CLIENT_SECRET="Y5FdR8CE3nFJ6sTCUYImCjKytqRIa"
-        TOKEN_URL="https://b63437d2-f460-4dd6-b70a-439f313d4071-dev.e1-us-cdp-2.choreosts.dev/oauth2/token"
+ //       CLIENT_ID="EAbyGf_KlSfEBCwfcd76_ZDdrGQa"
+ //       CLIENT_SECRET="3KwjqAXAsj0EZoRPVk5YCQyB4r0a"
+ //       TOKEN_URL="https://b63437d2-f460-4dd6-b70a-439f313d4071-dev.e1-us-cdp-2.choreosts.dev/oauth2/token"
         
         // Encode client credentials as Base64
         const CLIENT_CREDENTIALS = btoa(`${CLIENT_ID}:${CLIENT_SECRET}`);
